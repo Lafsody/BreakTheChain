@@ -6,19 +6,6 @@ public class GameManager : MonoBehaviour {
     private GameManager _instance;
     public GameManager Instance { get{ return _instance; } }
 
-    void Awake()
-    {
-        if(_instance == null)
-        {
-            _instance = this;
-        }
-        else
-        {
-            Destroy(this);
-            return;
-        }
-    }
-
     public enum GameState
     {
         COUNTDOWN,
@@ -30,6 +17,21 @@ public class GameManager : MonoBehaviour {
 
     private GameState gameState;
 
+    void Awake()
+    {
+        if(_instance == null)
+        {
+            _instance = this;
+        }
+        else
+        {
+            Destroy(this);
+            return;
+        }
+
+        gameState = GameState.COUNTDOWN;
+    }
+    
 	// Use this for initialization
 	void Start () {
 	
