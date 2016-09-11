@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class NormalJewel : Jewel {
 
@@ -10,8 +11,18 @@ public class NormalJewel : Jewel {
         jewelIndex = index;
     }
 
+    public override void InitiateLogic(int x, int y)
+    {
+        base.InitiateLogic(x, y);
+    }
+
     public int GetJewelIndex()
     {
         return jewelIndex;
+    }
+
+    public override string GetName()
+    {
+        return "" + jewelIndex;
     }
 }

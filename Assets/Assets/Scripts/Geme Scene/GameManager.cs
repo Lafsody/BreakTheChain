@@ -2,9 +2,8 @@
 using System.Collections;
 
 public class GameManager : MonoBehaviour {
-
-    private GameManager _instance;
-    public GameManager Instance { get{ return _instance; } }
+    
+    public static GameManager Instance { get; private set; }
 
     public enum GameState
     {
@@ -19,22 +18,15 @@ public class GameManager : MonoBehaviour {
 
     void Awake()
     {
-        if(_instance == null)
-        {
-            _instance = this;
-        }
-        else
-        {
-            Destroy(this);
-            return;
-        }
+        Instance = this;
 
         gameState = GameState.COUNTDOWN;
     }
     
 	// Use this for initialization
 	void Start () {
-	
+        BoardManager.Instance.GenerateIndexBoard();
+        BoardManager.Instance.ConvertIndexBoardToBoard();
 	}
 	
 	// Update is called once per frame

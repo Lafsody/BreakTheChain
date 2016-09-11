@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 
 public class BoardManager : MonoBehaviour {
-
-    private BoardManager _instance;
-    public BoardManager Instance { get { return _instance; } }
+    
+    public static BoardManager Instance { get; private set; }
 
     private Board board;
     private Board oldBoard;
@@ -16,15 +15,7 @@ public class BoardManager : MonoBehaviour {
 
     void Awake()
     {
-        if(_instance == null)
-        {
-            _instance = this;
-        }
-        else
-        {
-            Destroy(this);
-            return;
-        }
+        Instance = this;
 
         Initiate();
     }
@@ -34,6 +25,7 @@ public class BoardManager : MonoBehaviour {
         if(board == null)
         {
             board = new Board(boardWidth, boardHeight);
+            board.CreateGameObject();
             indexBoard = new string[boardWidth, boardHeight];
             oldBoard = null;
         }
@@ -116,7 +108,9 @@ public class BoardManager : MonoBehaviour {
         {
             for (int j = 0; j < indexBoard.GetLength(1); j++)
             {
-                tempBoard.SetJewel(i, j, JewelConverter.GetJewelFromIndex(indexBoard[i, j]));
+                Jewel newJewel = JewelConverter.GetJewelFromIndex(indexBoard[i, j]);
+                newJewel.InitiateLogic(i, j);
+                tempBoard.SetJewel(i, j, newJewel);
             }
         }
         if (oldBoard != null)
