@@ -15,5 +15,7 @@ public abstract class LogicRenderObject {
         return (T)renderObject;
     }
 
+    public abstract void OnTouchDown();
+    public abstract void OnDragOver();
     public abstract void OnTouchUp();
 }

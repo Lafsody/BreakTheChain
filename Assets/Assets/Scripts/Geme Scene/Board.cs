@@ -4,7 +4,7 @@ using System.Collections;
 public class Board {
 
     private GameObject boardGameObject;
-    private Jewel[,] board;
+    public Jewel[,] board { get; private set; }
 
     public Board(int width, int height)
     {
@@ -41,6 +41,7 @@ public class Board {
                     GetPositionFromIndex(i, j, out x, out y);
                     board[i, j].InitiateRender(x, y);
                     board[i, j].Appear();
+                    board[i, j].GetRender<JewelRender>().gameObject.transform.parent = boardGameObject.transform;
                 }
             }
         }

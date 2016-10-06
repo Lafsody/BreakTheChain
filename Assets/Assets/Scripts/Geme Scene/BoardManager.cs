@@ -35,9 +35,9 @@ public class BoardManager : MonoBehaviour {
         string[,] boardTemp;
 
         RandomHolder randomHolder = new RandomHolder();
-        randomHolder.AddChance("2", 5);
-        randomHolder.AddChance("3", 20);
-        randomHolder.AddChance("4", 30);
+        randomHolder.AddChance("2", 2);
+        randomHolder.AddChance("3", 13);
+        randomHolder.AddChance("4", 50);
         randomHolder.AddChance("5", 30);
         string randomName = randomHolder.GetRandom();
         switch(randomName)
@@ -117,5 +117,22 @@ public class BoardManager : MonoBehaviour {
         oldBoard = board;
         board = tempBoard;
         board.Enter();
+    }
+
+    public bool HasPairLeft()
+    {
+        for(int i = 0; i < board.board.GetLength(0); i++)
+        {
+            for(int j = 0; j < board.board.GetLength(1); j++)
+            {
+
+            }
+        }
+        return false;
+    }
+
+    public void CountAroundEqual(int x, int y, int jewelIndex)
+    {
+
     }
 }

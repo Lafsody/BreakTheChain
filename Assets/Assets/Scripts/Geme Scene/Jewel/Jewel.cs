@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public abstract class Jewel : LogicRenderObject {
     public virtual void InitiateLogic(int x, int y)
@@ -29,8 +30,23 @@ public abstract class Jewel : LogicRenderObject {
 
     public abstract string GetName();
 
+    public override void OnTouchDown()
+    {
+        Debug.Log("On Touch " + GetName());
+    }
+
+    public override void OnDragOver()
+    {
+        //Debug.Log("Over " + GetName());
+    }
+
     public override void OnTouchUp()
     {
-        GetRender<JewelRender>().Disappear();
+        Selected();
+    }
+
+    private void Selected()
+    {
+
     }
 }

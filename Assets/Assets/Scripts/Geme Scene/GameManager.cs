@@ -25,12 +25,19 @@ public class GameManager : MonoBehaviour {
     
 	// Use this for initialization
 	void Start () {
+        StartPlaying();
+	}
+
+    public void StartPlaying()
+    {
+        gameState = GameState.PLAYING;
         BoardManager.Instance.GenerateIndexBoard();
         BoardManager.Instance.ConvertIndexBoardToBoard();
-	}
+    }
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+    public void ChangeBoard()
+    {
+        BoardManager.Instance.GenerateIndexBoard();
+        BoardManager.Instance.ConvertIndexBoardToBoard();
+    }
 }

@@ -33,6 +33,10 @@ public class GameInputController : MonoBehaviour {
             RayCastCheck(mousePosition, OnTouchUp, OnTouchUpNothing);
             selectedObject = null;
         }
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GameManager.Instance.ChangeBoard();
+        }
     }
 
     private void RayCastCheck(Vector3 position, Action<GameObject> action, Action failAction)
@@ -103,6 +107,15 @@ public class GameInputController : MonoBehaviour {
         if (selectedObject != null)
             Debug.Log("Notice Lost Item");
         selectedObject = null;
+    }
+
+    private void OnTouchDownForRenderObject()
+    {
+        RenderObject render = selectedObject.GetComponent<RenderObject>();
+        if (render != null)
+        {
+            render.GetHead<LogicRenderObject>().OnTouchDown();
+        }
     }
 
     private void OnTouchUpForRenderObject()
