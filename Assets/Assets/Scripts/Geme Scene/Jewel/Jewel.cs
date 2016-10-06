@@ -42,11 +42,7 @@ public abstract class Jewel : LogicRenderObject {
 
     public override void OnTouchUp()
     {
-        Selected();
-    }
-
-    private void Selected()
-    {
 
     }
+
 }

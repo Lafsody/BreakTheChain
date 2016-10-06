@@ -125,14 +125,79 @@ public class BoardManager : MonoBehaviour {
         {
             for(int j = 0; j < board.board.GetLength(1); j++)
             {
-
+                if (!board.HasJewel(i, j))
+                    continue;
+                Jewel jewel = board.GetJewel(i, j);
+                if(jewel is NormalJewel)
+                {
+                    NormalJewel normalJewel = jewel as NormalJewel;
+                    if (normalJewel.GetLogic<NormalJewelLogic>().IsBlock) continue;
+                    int jewelType = normalJewel.GetJewelIndex();
+                    int countSameColor = CountAroundEqual(i, j, jewelType);
+                    if (countSameColor >= 2)
+                    {
+                        return true;
+                    }
+                }
             }
         }
         return false;
     }
 
-    public void CountAroundEqual(int x, int y, int jewelIndex)
+    public int CountAroundEqual(int x, int y, int jewelType)
     {
+        int co = 0;
+        int[,] direction = { { -1, -1 }, { -1, 0 }, { -1, 1 }, { 0, -1 }, { 0, 1 }, { 1, -1 }, { 1, 0 }, { 1, 1 } };
+        for(int i = 0; i < direction.GetLength(0); i++)
+        {
+            int dx = direction[i, 0];
+            int dy = direction[i, 1];
+            if(IsTypeEqual(x + dx, y + dy, jewelType))
+            {
+                co++;
+            }
+        }
+        return co;
+    }
 
+    private bool IsTypeEqual(int x, int y, int jewelType)
+    {
+        if (!board.HasJewel(x, y))
+            return false;
+        Jewel jewel = board.GetJewel(x, y);
+        if (!(jewel is NormalJewel))
+            return false;
+        NormalJewel normalJewel = jewel as NormalJewel;
+        if (normalJewel.GetLogic<JewelLogic>().IsBlock)
+            return false;
+        return jewelType == normalJewel.GetJewelIndex();
+    }
+
+    public int CheckCountAroundOfAround(int x, int y, int jewelType)
+    {
+        int maxCount = 0;
+        int co = 0;
+        for(int i = -1; i <= 1; i++)
+        {
+            for(int j = -1; j <= 1; j++)
+            {
+                int x1 = x + i;
+                int y1 = y + j;
+                if (!board.HasJewel(x1, y1))
+                    continue;
+                Jewel jewel = board.GetJewel(x1, y1);
+                if(jewel is NormalJewel)
+                {
+                    NormalJewel normalJewel = jewel as NormalJewel;
+                    if(normalJewel.GetJewelIndex() == jewelType)
+                    {
+                        co = CountAroundEqual(x1, y1, jewelType);
+                        if (co > maxCount)
+                            maxCount = co;
+                    }
+                }
+            }
+        }
+        return maxCount;
     }
 }

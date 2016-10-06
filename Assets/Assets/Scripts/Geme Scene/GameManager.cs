@@ -40,4 +40,12 @@ public class GameManager : MonoBehaviour {
         BoardManager.Instance.GenerateIndexBoard();
         BoardManager.Instance.ConvertIndexBoardToBoard();
     }
+
+    public void OnBoardChange()
+    {
+        if(!BoardManager.Instance.HasPairLeft())
+        {
+            ChangeBoard();
+        }
+    }
 }

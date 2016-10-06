@@ -16,6 +16,11 @@ public class Board {
         boardGameObject = PrefabsHolder.Instance.CreateBoard();
     }
 
+    public bool HasJewel(int x, int y)
+    {
+        return x >= 0 && x < board.GetLength(0) && y >= 0 && y < board.GetLength(1) && board[x, y] != null;
+    }
+
     public void SetJewel(int x, int y, Jewel jewel)
     {
         board[x, y] = jewel;
@@ -65,6 +70,7 @@ public class Board {
     public void Clear()
     {
         // TODO loop jewel.clear();
+        Leave();
     }
 
     private void GetPositionFromIndex(int i, int j, out float x, out float y)

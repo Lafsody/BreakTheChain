@@ -13,7 +13,10 @@ public class NormalJewel : Jewel {
 
     public override void InitiateLogic(int x, int y)
     {
-        base.InitiateLogic(x, y);
+        Debug.Assert(logicObject == null);
+        NormalJewelLogic logic = new NormalJewelLogic(x, y);
+        logic.SetHead(this);
+        logicObject = logic;
     }
 
     public int GetJewelIndex()
@@ -24,5 +27,32 @@ public class NormalJewel : Jewel {
     public override string GetName()
     {
         return "" + jewelIndex;
+    }
+
+    public override void OnTouchUp()
+    {
+        base.OnTouchUp();
+        Selected();
+    }
+
+    private void Selected()
+    {
+        if (CheckCanSelect())
+        {
+            GetLogic<NormalJewelLogic>().SetBlock(true);
+            GetRender<NormalJewelRender>().Block();
+            GameManager.Instance.OnBoardChange();
+        }
+        else
+        {
+            Debug.LogFormat("<color=red>Not a possible move!</color>");
+        }
+    }
+
+    private bool CheckCanSelect()
+    {
+        NormalJewelLogic jewelLogic = GetLogic<NormalJewelLogic>();
+        int sameColorCount = BoardManager.Instance.CheckCountAroundOfAround(jewelLogic.x, jewelLogic.y, GetJewelIndex());
+        return sameColorCount >= 2;
     }
 }

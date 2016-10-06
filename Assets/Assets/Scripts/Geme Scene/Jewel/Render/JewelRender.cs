@@ -13,4 +13,19 @@ public class JewelRender : RenderObject {
     {
         gameObject.SetActive(false);
     }
+
+    public void Selected()
+    {
+
+    }
+
+    public void Deselected()
+    {
+
+    }
+
+    public void Block()
+    {
+        gameObject.SetActive(false);
+    }
 }
