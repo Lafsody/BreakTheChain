@@ -28,4 +28,9 @@ public abstract class Jewel : LogicRenderObject {
     }
 
     public abstract string GetName();
+
+    public override void OnTouchUp()
+    {
+        GetRender<JewelRender>().Disappear();
+    }
 }

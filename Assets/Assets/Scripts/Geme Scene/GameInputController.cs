@@ -51,7 +51,7 @@ public class GameInputController : MonoBehaviour {
     private void LostSelectedObject(Action failAction)
     {
         failAction();
-        UnselectedObject();
+        DeselectedObject();
     }
 
     private void OnTouchDown(GameObject hitObject)
@@ -66,7 +66,7 @@ public class GameInputController : MonoBehaviour {
 
     private void OnDragObject(GameObject hitObject)
     {
-
+        OnSelectedObject(hitObject);
     }
 
     private void OnDragNothing()
@@ -76,12 +76,13 @@ public class GameInputController : MonoBehaviour {
 
     private void OnTouchUp(GameObject hitObject)
     {
-
+        if (selectedObject != null)
+            OnTouchUpForRenderObject();
+        DeselectedObject();
     }
 
     private void OnTouchUpNothing()
     {
-
     }
 
     private void OnSelectedObject(GameObject _selectObject)
@@ -97,10 +98,19 @@ public class GameInputController : MonoBehaviour {
         selectedObject = _selectObject;
     }
 
-    private void UnselectedObject()
+    private void DeselectedObject()
     {
         if (selectedObject != null)
             Debug.Log("Notice Lost Item");
         selectedObject = null;
+    }
+
+    private void OnTouchUpForRenderObject()
+    {
+        RenderObject render = selectedObject.GetComponent<RenderObject>();
+        if(render != null)
+        {
+            render.GetHead<LogicRenderObject>().OnTouchUp();
+        }
     }
 }
