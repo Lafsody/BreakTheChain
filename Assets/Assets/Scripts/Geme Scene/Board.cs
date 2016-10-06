@@ -4,6 +4,7 @@ using System.Collections;
 public class Board {
 
     private GameObject boardGameObject;
+    private const float destroyBoardTime = 1;
     public Jewel[,] board { get; private set; }
 
     public Board(int width, int height)
@@ -65,12 +66,12 @@ public class Board {
                 }
             }
         }
+        PrefabsHolder.Instance.DestroyGameObject(boardGameObject, destroyBoardTime);
     }
 
     public void Clear()
     {
         // TODO loop jewel.clear();
-        Leave();
     }
 
     private void GetPositionFromIndex(int i, int j, out float x, out float y)

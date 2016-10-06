@@ -6,7 +6,6 @@ public class BoardManager : MonoBehaviour {
     public static BoardManager Instance { get; private set; }
 
     private Board board;
-    private Board oldBoard;
     private string[,] oldIndexBoard;
     private string[,] indexBoard; 
     public int boardWidth;
@@ -16,8 +15,6 @@ public class BoardManager : MonoBehaviour {
     void Awake()
     {
         Instance = this;
-
-        Initiate();
     }
 
     public void Initiate()
@@ -26,7 +23,6 @@ public class BoardManager : MonoBehaviour {
         {
             board = new Board(boardWidth, boardHeight);
             indexBoard = new string[boardWidth, boardHeight];
-            oldBoard = null;
         }
     }
 
@@ -97,10 +93,7 @@ public class BoardManager : MonoBehaviour {
 
     public void ConvertIndexBoardToBoard()
     {
-        if(indexBoard == null)
-        {
-            Debug.Log("Index Board is empty");
-        }
+        Debug.Assert(indexBoard != null);
 
         Board tempBoard = new Board(boardWidth, boardHeight);
         for (int i = 0; i < indexBoard.GetLength(0); i++)
@@ -112,9 +105,10 @@ public class BoardManager : MonoBehaviour {
                 tempBoard.SetJewel(i, j, newJewel);
             }
         }
-        if (oldBoard != null)
-            oldBoard.Leave();
-        oldBoard = board;
+        if (board != null)
+        {
+            board.Leave();
+        }
         board = tempBoard;
         board.Enter();
     }
@@ -189,6 +183,8 @@ public class BoardManager : MonoBehaviour {
                 if(jewel is NormalJewel)
                 {
                     NormalJewel normalJewel = jewel as NormalJewel;
+                    if (normalJewel.GetLogic<NormalJewelLogic>().IsBlock)
+                        continue;
                     if(normalJewel.GetJewelIndex() == jewelType)
                     {
                         co = CountAroundEqual(x1, y1, jewelType);

@@ -45,4 +45,9 @@ public class PrefabsHolder : MonoBehaviour {
         Debug.Assert(jewelPrefab != null);
         return Instantiate(jewelPrefab, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
     }
+
+    public void DestroyGameObject(GameObject gameObject, float t)
+    {
+        Destroy(gameObject, t);
+    }
 }
