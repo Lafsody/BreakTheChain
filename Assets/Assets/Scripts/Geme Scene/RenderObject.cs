@@ -2,8 +2,6 @@
 using System.Collections;
 
 public abstract class RenderObject : MonoBehaviour {
-
-    protected GameObject renderGameObject;
     protected LogicRenderObject head;
 
     public T GetHead<T>() where T : LogicRenderObject
@@ -15,6 +13,4 @@ public abstract class RenderObject : MonoBehaviour {
     {
         head = _head;
     }
-
-    public abstract void CreateObject();
 }

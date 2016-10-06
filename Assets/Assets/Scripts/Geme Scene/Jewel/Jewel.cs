@@ -13,10 +13,8 @@ public abstract class Jewel : LogicRenderObject {
     public virtual void InitiateRender(float x, float y)
     {
         Debug.Assert(renderObject == null);
-        JewelRender render = new JewelRender(x, y);
-        render.SetHead(this);
-        render.CreateObject();
-        renderObject = render;
+        renderObject = PrefabsHolder.Instance.CreateJewelPrefabByName(GetName(), x, y).GetComponent<RenderObject>();
+        renderObject.SetHead(this);
     }
 
     public void Appear()

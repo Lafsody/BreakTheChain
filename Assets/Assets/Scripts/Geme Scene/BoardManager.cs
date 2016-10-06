@@ -25,7 +25,6 @@ public class BoardManager : MonoBehaviour {
         if(board == null)
         {
             board = new Board(boardWidth, boardHeight);
-            board.CreateGameObject();
             indexBoard = new string[boardWidth, boardHeight];
             oldBoard = null;
         }

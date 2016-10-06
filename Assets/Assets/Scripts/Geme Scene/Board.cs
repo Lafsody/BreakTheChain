@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Board : MonoBehaviour {
+public class Board {
 
     private GameObject boardGameObject;
     private Jewel[,] board;
@@ -13,8 +13,7 @@ public class Board : MonoBehaviour {
 
     public void CreateGameObject()
     {
-        GameObject boardPrefab = PrefabsHolder.Instance.GetBoardPrefab();
-        boardGameObject = Instantiate(boardPrefab);
+        boardGameObject = PrefabsHolder.Instance.CreateBoard();
     }
 
     public void SetJewel(int x, int y, Jewel jewel)

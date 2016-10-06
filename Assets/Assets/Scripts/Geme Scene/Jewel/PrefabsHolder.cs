@@ -33,4 +33,16 @@ public class PrefabsHolder : MonoBehaviour {
         Debug.Assert(index < jewelPrefabs.Length);
         return jewelPrefabs[index];
     }
+
+    public GameObject CreateBoard()
+    {
+        return Instantiate(boardPrefab) as GameObject;
+    }
+
+    public GameObject CreateJewelPrefabByName(string jewelName, float x, float y)
+    {
+        GameObject jewelPrefab = GetJewelPrefabByName(jewelName);
+        Debug.Assert(jewelPrefab != null);
+        return Instantiate(jewelPrefab, new Vector3(x, y, 0), Quaternion.identity) as GameObject;
+    }
 }
